@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: api-tienda-mascotas
+    env: docker
+    plan: free
+    autoDeploy: true
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:postgresql://db.rhswpjufipkvmzgqicxn.supabase.co:5432/postgres?sslmode=require
+      - key: SPRING_DATASOURCE_USERNAME
+        value: postgres
+      - key: SPRING_DATASOURCE_PASSWORD
+        sync: false  # Mejor usar esto para no exponer la contraseña
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: PORT
+        value: 8080
+      - key: FRONTEND_URL
+        value: https://tu-frontend.vercel.app  # FALTABA ESTO
+      - key: JWT_SECRET
+        generateValue: true  # Genera un secreto automáticamente
